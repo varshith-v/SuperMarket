@@ -5,17 +5,40 @@
  */
 package supermarket;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author varsh
  */
 public class LoginScreen extends javax.swing.JFrame {
-
+    
+    String url,uname,pass;
+    Connection con;
+    Statement st;
+    PreparedStatement pst;
+    String query,update;
+    ResultSet rs; 
     /**
      * Creates new form NewJFrame
      */
     public LoginScreen() {
         initComponents();
+        try{
+            url = "jdbc:mysql://localhost:3306/supermarket?autoReconnect=true&useSSL=false";
+            uname = "root";
+            pass = "password";
+            con = DriverManager.getConnection(url,uname,pass);
+            st = con.createStatement(); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,e); 
+          }  
     }
 
     /**
@@ -39,8 +62,6 @@ public class LoginScreen extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(62, 62, 124));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/supermarket/res/logo.jpg"))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -82,8 +103,7 @@ public class LoginScreen extends javax.swing.JFrame {
                                     .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(123, 123, 123)
-                                .addComponent(loginBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                                .addComponent(loginBtn))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(153, 153, 153)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -125,8 +145,32 @@ public class LoginScreen extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        this.dispose();
+        try{
+        int id = Integer.parseInt(idTextField.getText());
+        String passwordInput = passwordTextField.getText();
+        query = "SELECT * FROM employee WHERE eid = " + id;
+        rs = st.executeQuery(query);
+        if(rs.next()){
+            String pw = rs.getString("password");
+            String desig = rs.getString("designation");
+            if(pw.equals(passwordInput)){
+                if(desig.equals("Manager"))
+                    new Modify().setVisible(true);
+                else if(desig.equals("SalesPerson"))
+                    new SalesPage(id).setVisible(true);
+                this.dispose();
+            }
+            else
+                JOptionPane.showMessageDialog(rootPane, "WRONG PASSWORD !", "Login Failed", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(rootPane, "This Employee ID does not exist\n"
+                    + "Contact a MANAGER to create your account", "Login Failed", JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+            
     }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
