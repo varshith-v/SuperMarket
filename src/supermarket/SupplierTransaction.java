@@ -645,12 +645,12 @@ public class SupplierTransaction extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        try{
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
+//        try{
+//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//        }
+//        catch(Exception e){
+//            System.out.println(e);
+//        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

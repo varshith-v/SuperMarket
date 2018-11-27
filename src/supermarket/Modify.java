@@ -989,12 +989,12 @@ public class Modify extends javax.swing.JFrame {
 //            java.util.logging.Logger.getLogger(Modify.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 
-          try{
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
+//          try{
+//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//        }
+//        catch(Exception e){
+//            System.out.println(e);
+//       }
         //</editor-fold>
 
         /* Create and display the form */
