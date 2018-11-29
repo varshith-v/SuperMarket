@@ -5,6 +5,7 @@
  */
 package supermarket;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,6 +29,7 @@ public class SupplierTransaction extends javax.swing.JFrame {
     Connection con;
     Statement st;
     PreparedStatement pst;
+    CallableStatement cst;
     String query,update;
     ResultSet rs;
     
@@ -38,8 +40,8 @@ public class SupplierTransaction extends javax.swing.JFrame {
     /**
      * Creates new form SupplierTransaction
      */
-    public SupplierTransaction(int empID) {
-        this.empID = empID;
+    public SupplierTransaction(int eID) {
+        this.empID = eID;
         initComponents();
         try{
             url = "jdbc:mysql://localhost:3306/supermarket?autoReconnect=true&useSSL=false";
@@ -52,10 +54,16 @@ public class SupplierTransaction extends javax.swing.JFrame {
             while(rs.next()){
                 productComboBox.addItem(rs.getString("p_name"));
             }
-            query = "SELECT * from employee WHERE eid = " + this.empID;
-            rs = st.executeQuery(query);
+            
+//            query = "SELECT * from employee WHERE eid = " + this.empID;
+//            rs = st.executeQuery(query);
+            
+            cst = con.prepareCall("call getEmployee(?)");
+            cst.setInt(1, this.empID);
+            rs = cst.executeQuery();
+            
             rs.next();
-            myAccountTxt.setText(" Employee ID:  " + empID + "\n\n Name: \t" + rs.getString("e_name") + 
+            myAccountTxt.setText(" Employee ID:  " + eID + "\n\n Name: \t" + rs.getString("e_name") + 
                     "\n\n Phone: \t" + rs.getString("e_phone") +  "\n\n Email: \t" + rs.getString("email") +
                     "\n\n Designation: \t" + rs.getString("designation") +"\n\n Salary: \t" + rs.getString("salary"));
         } 
@@ -114,7 +122,7 @@ public class SupplierTransaction extends javax.swing.JFrame {
         billBtn = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
         custPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -641,23 +649,8 @@ public class SupplierTransaction extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_billBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-//        try{
-//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-//        }
-//        catch(Exception e){
-//            System.out.println(e);
-//        }
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new SupplierTransaction(1).setVisible(true);
-            }
-        });
-    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel accountPanel;

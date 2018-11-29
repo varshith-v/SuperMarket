@@ -25,6 +25,7 @@ public class SalesPage extends javax.swing.JFrame  {
     Connection con;
     Statement st;
     PreparedStatement pst;
+    CallableStatement cst;
     String query,update;
     ResultSet rs;
     
@@ -33,8 +34,8 @@ public class SalesPage extends javax.swing.JFrame  {
     int empID, custID, rewardPoints, redeemableRewards;
     
 
-    public SalesPage(int empID) {
-        this.empID = empID;
+    public SalesPage(int eID) {
+        this.empID = eID;
         initComponents();
         billBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
         deleteBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.red));
@@ -44,16 +45,24 @@ public class SalesPage extends javax.swing.JFrame  {
             uname = "root";
             pass = "password";
             con = DriverManager.getConnection(url,uname,pass);
+            
             st = con.createStatement();
-            query = "select * from product";
+            query = "SELECT * FROM product ORDER BY p_name";
             rs = st.executeQuery(query);
+
             while(rs.next()){
                 productComboBox.addItem(rs.getString("p_name"));
             }
-            query = "SELECT * from employee WHERE eid = " + this.empID;
-            rs = st.executeQuery(query);
+            
+//            query = "SELECT * from employee WHERE eid = " + this.empID;
+//            rs = st.executeQuery(query);
+            
+            cst = con.prepareCall("call getEmployee(?)");
+            cst.setInt(1, this.empID);
+            rs = cst.executeQuery();
+            
             rs.next();
-            myAccountTxt.setText(" Employee ID:  " + empID + "\n\n Name: \t" + rs.getString("e_name") + 
+            myAccountTxt.setText(" Employee ID:  " + eID + "\n\n Name: \t" + rs.getString("e_name") + 
                     "\n\n Phone: \t" + rs.getString("e_phone") +  "\n\n Email: \t" + rs.getString("email") +
                     "\n\n Designation: \t" + rs.getString("designation") +"\n\n Salary: \t" + rs.getString("salary"));
         } 
@@ -117,7 +126,7 @@ public class SalesPage extends javax.swing.JFrame  {
         billBtn = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sales");
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1920, 1055));
@@ -362,7 +371,6 @@ public class SalesPage extends javax.swing.JFrame  {
         jLabel11.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel11.setText("BILL");
 
-        deleteBtn.setForeground(new java.awt.Color(255, 255, 255));
         deleteBtn.setText("Delete Product");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,7 +391,6 @@ public class SalesPage extends javax.swing.JFrame  {
         sumLabel.setText("₹0.0");
 
         billBtn.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        billBtn.setForeground(new java.awt.Color(255, 255, 255));
         billBtn.setText("Generate BILL");
         billBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
