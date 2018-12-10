@@ -201,13 +201,13 @@ public class LoginScreen extends javax.swing.JFrame {
 //        }
         //</editor-fold>
         //</editor-fold>
-        try{
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
-        /* Create and display the form */
+//        try{
+//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//        }
+//        catch(Exception e){
+//            System.out.println(e);
+//        }
+//        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginScreen().setVisible(true);

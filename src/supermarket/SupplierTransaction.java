@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+//import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 /**
  *
@@ -72,8 +72,8 @@ public class SupplierTransaction extends javax.swing.JFrame {
           }  
         model =(DefaultTableModel) jTable1.getModel();
         AutoCompletion.enable(productComboBox);
-         billBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-        deleteBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.red));
+//         billBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+//        deleteBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.red));
     }
 
     /**

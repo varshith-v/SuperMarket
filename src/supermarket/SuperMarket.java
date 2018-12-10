@@ -33,12 +33,12 @@ public class SuperMarket {
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
 //            java.util.logging.Logger.getLogger(SalesPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //    }
-        try{
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        }
-        catch(Exception e){
-            System.out.println(e);
-        }
+//        try{
+//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//        }
+//        catch(Exception e){
+//            System.out.println(e);
+//        }
         new LoginScreen().setVisible(true);
     }
     

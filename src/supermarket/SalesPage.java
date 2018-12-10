@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
+//import org.jb2011.lnf.beautyeye.ch3_button.BEButtonUI;
 
 
 /**
@@ -37,8 +37,8 @@ public class SalesPage extends javax.swing.JFrame  {
     public SalesPage(int eID) {
         this.empID = eID;
         initComponents();
-        billBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
-        deleteBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.red));
+//        billBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.green));
+//        deleteBtn.setUI(new BEButtonUI().setNormalColor(BEButtonUI.NormalColor.red));
         
         try{
             url = "jdbc:mysql://localhost:3306/supermarket?autoReconnect=true&useSSL=false";
