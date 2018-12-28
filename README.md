@@ -1,5 +1,5 @@
 # SuperMarket
-A Java desktop application which can be used for inventory stock management and bill generation in a supermarket. MySQL database is used for storage of product data.
+A Java desktop application which can be used for inventory stock management and bill generation in a supermarket. MySQL database is used for storage of product data, customer, employee and transaction records.
 
 Java database connectivity(JDBC) is used to connect the MySQL database to java program and execute SQL queries and update statements
 
